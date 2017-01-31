@@ -105,6 +105,22 @@
   JSVEE.handlers.explanations.createFunction = JSVEE.messages.createFunction;
 
   /**
+   * Creates a new property.
+   */
+  JSVEE.handlers.actions.createProperty = function(ready, name, text, pc, className) {
+
+    var f = JSVEE.utils.ui.createProperty(name, text, pc, className);
+
+    this.area.find('.jsvee-class[data-name="' + className + '"]').last().append(f);
+
+    ready(f);
+
+  };
+  JSVEE.registerAction('createProperty', JSVEE.handlers.actions.createProperty);
+  JSVEE.handlers.animations.createProperty = bindAnimation(JSVEE.handlers.actions.createProperty);
+  JSVEE.handlers.explanations.createProperty = JSVEE.messages.createProperty;
+
+  /**
    * Creates a new class.
    */
   JSVEE.handlers.actions.createClass = function(ready, name) {
@@ -628,6 +644,34 @@
   JSVEE.registerAction('addFunction', JSVEE.handlers.actions.addFunction);
 
   /**
+   * Adds a property to the evaluation area.
+   */
+  JSVEE.handlers.actions.addProperty = function(ready, name, position, className) {
+
+    var func = JSVEE.utils.ui.findProperty(this.area, name, className, position);
+    var target = JSVEE.utils.ui.findEvaluationArea(this.area, position);
+    var newElement = func.clone().appendTo(target);
+    ready(newElement);
+
+  };
+
+  JSVEE.handlers.animations.addProperty = function(ready, name, position, className) {
+
+    var func = JSVEE.utils.ui.findProperty(this.area, name, className, position);
+    var target = JSVEE.utils.ui.findEvaluationArea(this.area, position);
+    JSVEE.utils.ui.animateMoveToTarget.call(this, this.area, func, target, false, ready);
+
+  };
+
+  JSVEE.handlers.explanations.addProperty = function(name, position, className) {
+
+    return JSVEE.messages.addProperty(name);
+
+  };
+
+  JSVEE.registerAction('addProperty', JSVEE.handlers.actions.addProperty);
+
+  /**
    * Adds a function reference to the evaluation area.
    */
   JSVEE.handlers.actions.addFunctionReference = function(ready, name, position, params, className) {
@@ -1146,33 +1190,38 @@
     var instance = JSVEE.utils.ui.createInstance(this.area, arrayType);
     this.area.find('.jsvee-heap').append(instance);
 
+    /*
     var op = JSVEE.utils.ui.findElement(this.area, position);
     var size = +op.find('.jsvee-value').first().text();
+    */
 
     if (length) {
       var lengthVar = JSVEE.utils.ui.createVariable(length);
-      var sizeVal = op.find('.jsvee-value').first().clone();
+      var sizeVal = JSVEE.utils.ui.createValue(0, instance.data('id'));
+      //var sizeVal = op.find('.jsvee-value').first().clone();
       sizeVal.appendTo(lengthVar);
       lengthVar.appendTo(instance);
     }
 
+    /*
     var i = 0,
       element = null;
     for (i = 0; i < size; i++) {
       element = JSVEE.utils.ui.findOrCreateValue(this.area, value, valueType).clone();
       element.appendTo(instance);
     }
+    */
 
     var id = instance.attr('data-id');
     var ref = JSVEE.utils.ui.createReference(this.area, id);
 
-    op.replaceWith(ref);
+    //op.replaceWith(ref);
 
     ready(instance);
 
   };
 
-  JSVEE.handlers.animations.createArray = JSVEE.utils.ui.flashElement;
+  //JSVEE.handlers.animations.createArray = JSVEE.utils.ui.flashElement;
 
   JSVEE.handlers.explanations.createArray = function(position, arrayType, value, valueType) {
     return JSVEE.messages.createArray(valueType);
@@ -1533,10 +1582,12 @@
     collection.children('.jsvee-value').remove();
     var values = element.find('.jsvee-value');
     var ref = JSVEE.utils.ui.createReference(this.area, collectionId);
+    var lengthValue = collection.find('[data-name="length"] .jsvee-value');
     var i = 0;
 
     for (i = 1; i < values.length; i++) {
       values.eq(i).clone().appendTo(collection);
+      lengthValue.text(i);
     }
 
     element.replaceWith(ref);

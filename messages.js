@@ -97,6 +97,10 @@
     return 'Method {0}'.format(name);
   };
 
+  JSVEE.messages.propertyTitle = function(name) {
+    return 'Property {0}'.format(name);
+  };
+
   JSVEE.messages.classTitle = function(name) {
     return 'Class {0}'.format(name);
   };
@@ -199,6 +203,10 @@
 
   JSVEE.messages.addFunction = function(name) {
     return 'Fetching the function {0}'.format(name);
+  };
+
+  JSVEE.messages.addProperty = function(name) {
+    return 'Fetching the property {0}'.format(name);
   };
 
   JSVEE.messages.addMethod = function(name) {

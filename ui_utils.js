@@ -325,6 +325,29 @@
   };
 
   /**
+   * Creates a new property element.
+   *
+   * @returns {jQueryObject}
+   */
+  JSVEE.utils.ui.createProperty = function(name, text, pc, className) {
+
+    var f = $('<div></div>').addClass('jsvee-property');
+    f.attr('data-name', name);
+    f.attr('data-pc', pc);
+    f.attr('data-class', className);
+    f.text(text);
+
+    f.attr('title', JSVEE.messages.propertyTitle(name));
+
+    if (+pc <= 0) {
+      f.addClass('jsvee-property-builtin');
+    }
+
+    return f;
+
+  };
+
+  /**
    * Creates a new class element.
    *
    * @returns {jQueryObject}
@@ -852,6 +875,27 @@
     }
 
     var s = '.jsvee-classes .jsvee-class[data-name="' + realName + '"] .jsvee-function[data-name="' + name + '"]';
+    return area.find(s).first();
+
+  };
+
+  /**
+   * Finds the requested property element.
+   *
+   * @returns {jQueryObject}
+   */
+  JSVEE.utils.ui.findProperty = function(area, name, className, position) {
+
+    var realName = className;
+
+    // Get the correct type by looking the reference which should already be
+    // in the evaluation area
+    if (className === '?') {
+      var element = JSVEE.utils.ui.findElement(area, position, true);
+      realName = element.attr('data-type');
+    }
+
+    var s = '.jsvee-classes .jsvee-class[data-name="' + realName + '"] .jsvee-property[data-name="' + name + '"]';
     return area.find(s).first();
 
   };
