@@ -607,7 +607,27 @@
     return JSVEE.messages.evaluateOperator(op.attr('data-name'));
   };
 
-  JSVEE.handlers.animations.evaluateOperator = JSVEE.utils.ui.flashElement;
+  // Hack: animate fetching property if it's the . operator, otherwise flash element (default behaviour)
+  JSVEE.handlers.animations.evaluateOperator = function(ready, position) {
+    var that = this;
+    var op = JSVEE.utils.ui.findElement(this.area, position);
+
+    // Animate moving property to evaluation area
+    var readyFunction = function() {
+      var ref = that.area.find('.jsvee-instance[data-id="' + op.prev().data('id') + '"]');
+      var prop = op.find('.jsvee-property').data('name');
+      var value = ref.find('.jsvee-variable[data-name="' + prop + '"] .jsvee-value');
+
+      JSVEE.utils.ui.animateMoveToTarget.call(that, that.area, value, op, false, ready, false, op.prev());
+    };
+
+    if (op.data('name') === '.') {
+      readyFunction();
+    } else {
+        JSVEE.utils.ui.flashElement.call(this, ready, position);
+    }
+
+  }
   JSVEE.registerAction('evaluateOperator', JSVEE.handlers.actions.evaluateOperator);
 
   /**
