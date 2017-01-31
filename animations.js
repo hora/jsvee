@@ -99,6 +99,8 @@
       var id = $(this).attr('data-id');
       if (id) {
         new JSVEE.ui(id, this);
+        window.kelmu.data['name'] = {"definitions":{"step1":[[{"text":"The array's length is 0 because it's empty","width":158,"height":53,"left":452,"top":5,"size":"20","rotate":"0","color":"red","html":true,"background":"transparent","font":"Handlee, sans-serif","soundOption":"always"},{"y1":52,"x1":449,"y2":56,"x2":380,"arrow":"red","width":2,"size":6,"soundOption":"always"}]],"step7":[[{"text":"Now, length is 4","width":141,"height":32,"left":517,"top":17,"size":"20","rotate":"0","color":"red","html":true,"background":"transparent","font":"Handlee, sans-serif","soundOption":"always"},{"y1":45,"x1":512,"y2":60,"x2":399,"arrow":"red","width":2,"size":6,"soundOption":"always"}]]},"settings":{"animationLength":350,"undo":".jsvee-undo","step":".jsvee-step","redo":".jsvee-redo","begin":".jsvee-begin"}}
+        window.kelmu.initAnnotations(this, 'name');
       }
     });
   });

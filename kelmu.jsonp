@@ -1,0 +1,1 @@
+kelmuCb({"hello":{"definitions":{"step0":[[{"font":"Handlee, sans-serif","size":15,"rotate":0,"buttonText":"Continue","button":"show","parameter":2,"top":290,"left":351},{"action":"show","parameter":2,"when":"step"}]]},"settings":{"animationLength":350}}})
