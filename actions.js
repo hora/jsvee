@@ -116,6 +116,7 @@
     ready(f);
 
   };
+
   JSVEE.registerAction('createProperty', JSVEE.handlers.actions.createProperty);
   JSVEE.handlers.animations.createProperty = bindAnimation(JSVEE.handlers.actions.createProperty);
   JSVEE.handlers.explanations.createProperty = JSVEE.messages.createProperty;
@@ -1190,38 +1191,37 @@
     var instance = JSVEE.utils.ui.createInstance(this.area, arrayType);
     this.area.find('.jsvee-heap').append(instance);
 
-    /*
+    // Checks for new operator and the size of the array, if it exists, otherwise sets it to 0
     var op = JSVEE.utils.ui.findElement(this.area, position);
-    var size = +op.find('.jsvee-value').first().text();
-    */
+    var opValue = op.find('.jsvee-value').first();
+    var size = +opValue.text() || 0;
 
     if (length) {
       var lengthVar = JSVEE.utils.ui.createVariable(length);
-      var sizeVal = JSVEE.utils.ui.createValue(0, instance.data('id'));
-      //var sizeVal = op.find('.jsvee-value').first().clone();
+      // Clones existing sizeVal if it exists, otherwise creates a new one
+      var sizeVal = (opValue.length && opValue.clone()) || JSVEE.utils.ui.createValue(size, instance.data('id'));
       sizeVal.appendTo(lengthVar);
       lengthVar.appendTo(instance);
     }
 
-    /*
+    // Initializes empty array if size was provided
     var i = 0,
       element = null;
     for (i = 0; i < size; i++) {
       element = JSVEE.utils.ui.findOrCreateValue(this.area, value, valueType).clone();
       element.appendTo(instance);
     }
-    */
 
     var id = instance.attr('data-id');
     var ref = JSVEE.utils.ui.createReference(this.area, id);
 
-    //op.replaceWith(ref);
+    op.replaceWith(ref);
 
     ready(instance);
 
   };
 
-  //JSVEE.handlers.animations.createArray = JSVEE.utils.ui.flashElement;
+  JSVEE.handlers.animations.createArray = JSVEE.utils.ui.flashElement;
 
   JSVEE.handlers.explanations.createArray = function(position, arrayType, value, valueType) {
     return JSVEE.messages.createArray(valueType);

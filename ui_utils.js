@@ -824,13 +824,18 @@
 
     var that = this;
     var target = JSVEE.utils.ui.findElement(this.area, position);
-    target.addClass('jsvee-highlight');
-    target.animate({ delay: 1 }, that.animationLength / 2, function() {
-      target.removeClass('jsvee-highlight');
+
+    if (target.length) {
+      target.addClass('jsvee-highlight');
       target.animate({ delay: 1 }, that.animationLength / 2, function() {
-        ready();
+        target.removeClass('jsvee-highlight');
+        target.animate({ delay: 1 }, that.animationLength / 2, function() {
+          ready();
+        });
       });
-    });
+    } else {
+        ready();
+    }
 
   };
 
