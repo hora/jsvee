@@ -42,7 +42,7 @@
   };
 
   JSVEE.messages.consoleTitle = function() {
-    return 'Text console';
+    return 'Console';
   };
 
   JSVEE.messages.stackTitle = function() {
@@ -106,7 +106,7 @@
   };
 
   JSVEE.messages.readyText = function() {
-    return ' - ready.';
+    return ' - done.';
   };
 
   JSVEE.messages.failedText = function() {
@@ -282,7 +282,7 @@
   };
 
   JSVEE.messages.setValueByKey = function() {
-    return 'Assigning value to the dictionary';
+    return 'Assigning value to the object';
   };
 
   JSVEE.messages.addCollectionInitializer = function() {
