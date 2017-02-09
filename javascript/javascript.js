@@ -189,7 +189,7 @@
 
       var consoleArea = area.find('.jsvee-console');
 
-      if (element.attr('data-name') === 'print') {
+      if (element.attr('data-name') === 'console.log') {
         consoleArea.text(consoleArea.text() + str + '\n');
       } else {
         consoleArea.text(consoleArea.text() + str);

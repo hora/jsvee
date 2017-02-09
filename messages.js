@@ -254,8 +254,8 @@
   };
 
   JSVEE.messages.createInstance = function(className) {
-    if (className === 'dict') {
-      return 'Creating a new dictionary';
+    if (className === 'object') {
+      return 'Creating a new object';
     } else if (className === 'list') {
       return 'Creating a new list';
     }
