@@ -250,6 +250,73 @@
 
   };
 
+  JSVEE.animations['key-vars'] = {
+    'lines': [
+        'var user = {};',
+        '',
+        'user["name"] = "Imperator Furiosa";',
+        'user["password"] = "th3gr33nplac3";',
+        '',
+        'var key = "name";',
+        'var name = "Mad Max";',
+        '',
+        'console.log(user[key]);',
+        'console.log(user[name]);',
+    ],
+    'settings': { 'code': 'left', 'heapHeight': 0, 'stackHeight': 150, 'width': 1000 },
+    'init': [
+        ['createFrame'],
+        ['setLine', '1'],
+        ["createOperator", "[ ]", "pr", "", " [ # ]"],
+        ["createOperator", "[ ] =", "pr", "", "[ # ] = #"],
+        ['createFunction', 'console.log', 'console.log(value1)', '1', '-1']
+    ],
+    'steps': [
+        ['goto', '@l0'],
+        ['_label', 'l0'],
+        ['createInstance', 'object'],
+        ['addReference', '-1', '0'],
+        ['assign', 'user'],
+        ['setLine', '3'],
+        ['addValueFromVariable', 'user', '0'],
+        ['addOperator', '[ ] =', '1'],
+        ['addValue', 'name', '0/1/0', 'str'],
+        ['addValue', 'Imperator Furiosa', '0/2/0', 'str'],
+        ['setValueByKey', '0'],
+        ['setLine', '4'],
+        ['addValueFromVariable', 'user', '0'],
+        ['addOperator', '[ ] =', '1'],
+        ['addValue', 'password', '0/1/0', 'str'],
+        ['addValue', 'th3gr33nplac3', '0/2/0', 'str'],
+        ['setValueByKey', '0'],
+        ['setLine', '6'],
+        ['addValue', 'name', '0', 'str'],
+        ['assign', 'key'],
+        ['setLine', '7'],
+        ['addValue', 'Mad Max', '0', 'str'],
+        ['assign', 'name'],
+        ['setLine', '9'],
+        ['addFunction', 'console.log', '0', '1'],
+        ['addValueFromVariable', 'user', '0/0/0'],
+        ['addOperator', '[ ]', '0/0/1'],
+        ['addValueFromVariable', 'key', '0/0/0/1/0'],
+        //['addValue', 'name', '0/0/0/1/0', 'str'],
+        ['getValueByKey', '0/0/0'],
+        ['evaluateFunction', '0'],
+        ['setLine', '10'],
+        ['addFunction', 'console.log', '0', '1'],
+        ['addValueFromVariable', 'user', '0/0/0'],
+        ['addOperator', '[ ]', '0/0/1'],
+        ['addValueFromVariable', 'name', '0/0/0/1/0'],
+        //['addValue', 'password', '0/0/0/1/0', 'str'],
+        ['_removeElement', '0/0/0'],
+        ['addValue', 'undefined', '0/0/0', 'str'],
+        //['getValueByKey', '0/0/0'],
+        ['evaluateFunction', '0']
+     ]
+
+  };
+
   $(function() {
      //Create animations
     $('.jsvee-animation').each(function() {
